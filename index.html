@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>222 × Hibacci — Sat, Jul 18</title>
+<meta property="og:title" content="222 × Hibacci">
+<meta property="og:description" content="Saturday 1:30 PM · Banjara Hills · the plan, the order, the math.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍜</text></svg>">
+<style>
+  :root {
+    --bg: #0e0b09;
+    --bg-raise: #171310;
+    --line: #2b241e;
+    --ink: #f2e8d8;
+    --ink-dim: #a8988a;
+    --red: #ff4b33;
+    --red-deep: #c93a26;
+    --green: #4caf50;
+    --gold: #e8b45a;
+    --mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--red); color: #fff; }
+
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- hero ---------- */
+  header {
+    position: relative;
+    padding: 72px 0 56px;
+    text-align: center;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% -10%, rgba(255, 75, 51, 0.16), transparent 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: clamp(52px, 14vw, 96px);
+    line-height: 0.95;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+  h1 .thin {
+    display: block;
+    font-size: clamp(15px, 4vw, 22px);
+    font-weight: 600;
+    letter-spacing: 0.42em;
+    color: var(--ink-dim);
+    margin-bottom: 14px;
+  }
+  .when {
+    margin-top: 22px;
+    font-size: clamp(16px, 4.2vw, 20px);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .where {
+    margin-top: 6px;
+    color: var(--ink-dim);
+    font-size: 15px;
+  }
+  .where a { color: var(--ink-dim); text-underline-offset: 3px; }
+  .badges {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .badge {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--ink-dim);
+    background: var(--bg-raise);
+  }
+  .badge.hot { border-color: rgba(255, 75, 51, 0.5); color: var(--red); }
+  #status {
+    margin-top: 30px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--gold);
+  }
+
+  /* ---------- sections ---------- */
+  section { padding: 52px 0; border-bottom: 1px solid var(--line); }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-size: clamp(26px, 6.5vw, 34px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .note { color: var(--ink-dim); font-size: 15px; }
+
+  /* ---------- timeline ---------- */
+  .timeline { list-style: none; position: relative; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 7px; top: 10px; bottom: 10px;
+    width: 2px;
+    background: var(--line);
+  }
+  .timeline li {
+    position: relative;
+    padding: 0 0 26px 34px;
+  }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 7px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--red);
+  }
+  .timeline .t {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .timeline strong { font-weight: 700; }
+  .timeline p { color: var(--ink-dim); font-size: 15px; margin-top: 2px; }
+
+  /* ---------- receipt ---------- */
+  .receipt {
+    background: var(--bg-raise);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px 24px 20px;
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    position: relative;
+  }
+  .receipt h3 {
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    text-align: center;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .receipt .sub {
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-dim);
+    margin-bottom: 18px;
+  }
+  .rline {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 7px 0;
+    font-size: 14px;
+  }
+  .rline .dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--line);
+    transform: translateY(-4px);
+  }
+  .rline .price { color: var(--gold); white-space: nowrap; }
+  .receipt .who {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-dim);
+    padding-left: 24px;
+    margin-top: 1px;
+  }
+  .rsep {
+    border: none;
+    border-top: 1px dashed var(--line);
+    margin: 14px 0;
+  }
+  .rgroup {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    padding: 12px 0 4px;
+  }
+  .rtotal { font-weight: 700; font-size: 15px; }
+  .rtotal .price { color: var(--ink); }
+  .roffer .price { color: var(--green); }
+  .rhead {
+    text-align: center;
+    margin-top: 16px;
+    padding: 14px 0 6px;
+    border-top: 1px dashed var(--line);
+  }
+  .rhead .big {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .rhead .cap { font-size: 12px; color: var(--ink-dim); margin-top: 2px; }
+
+  /* veg / non-veg marks (FSSAI style) */
+  .mark {
+    display: inline-flex;
+    width: 14px; height: 14px;
+    border: 1.5px solid;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    transform: translateY(1.5px);
+  }
+  .mark.v { border-color: var(--green); }
+  .mark.v::after {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+  .mark.n { border-color: var(--red-deep); }
+  .mark.n::after {
+    content: "";
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 7px solid var(--red-deep);
+  }
+
+  .fineprint {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--ink-dim);
+  }
+  .fineprint li { margin: 6px 0 6px 18px; }
+
+  /* ---------- roster ---------- */
+  .roster {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 10px;
+  }
+  .person {
+    background: var(--bg-raise);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .person .name {
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .person .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 100px;
+    border: 1px solid var(--green);
+    color: var(--green);
+  }
+  .person .tag.warn { border-color: var(--gold); color: var(--gold); }
+  .person p { font-size: 13px; color: var(--ink-dim); margin-top: 4px; }
+  .person.dim { opacity: 0.55; }
+
+  /* ---------- intel ---------- */
+  .intel { list-style: none; counter-reset: n; }
+  .intel li {
+    counter-increment: n;
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 15px;
+  }
+  .intel li:last-child { border-bottom: none; }
+  .intel li::before {
+    content: counter(n, decimal-leading-zero);
+    font-family: var(--mono);
+    color: var(--red);
+    font-size: 13px;
+    padding-top: 2px;
+    flex: none;
+  }
+  .intel strong { font-weight: 700; }
+  .intel .why { color: var(--ink-dim); }
+
+  /* ---------- fifa ---------- */
+  .fifa {
+    background: var(--bg-raise);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px 24px;
+    text-align: center;
+  }
+  .fifa .vs {
+    font-size: clamp(22px, 6vw, 30px);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .fifa .vs em { font-style: normal; color: var(--red); padding: 0 10px; font-weight: 600; }
+  .fifa .meta { font-family: var(--mono); font-size: 13px; color: var(--ink-dim); margin-top: 8px; }
+  .fifa .pool {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .fifa .pool b { display: block; font-size: 22px; color: var(--gold); }
+  #fifa-count { margin-top: 16px; font-family: var(--mono); font-size: 13px; color: var(--gold); }
+
+  footer {
+    padding: 44px 0 60px;
+    text-align: center;
+    color: var(--ink-dim);
+    font-size: 13px;
+    font-family: var(--mono);
+  }
+  footer .noodle { font-size: 22px; display: block; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">222 · field trip</div>
+    <h1><span class="thin">Saturday, July 18</span>Hibacci</h1>
+    <div class="when">1:30 PM — no later. Amaan said so.</div>
+    <div class="where">Road No. 7, Banjara Hills · 4th floor + rooftop · <a href="https://maps.google.com/?q=Hibacci+Banjara+Hills+Hyderabad" target="_blank" rel="noopener">map</a></div>
+    <div class="badges">
+      <span class="badge hot">table booked ✓</span>
+      <span class="badge">8 invited</span>
+      <span class="badge">veg covered, always</span>
+      <span class="badge">26° · light drizzle</span>
+    </div>
+    <div id="status"></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Run of show</div>
+    <h2>How the day goes</h2>
+    <ul class="timeline">
+      <li>
+        <span class="t">1:30 PM</span>
+        <strong>Sit, then order everything at once.</strong>
+        <p>The kitchen is slow at peak and the room is small. One big order beats four rounds of "should we get more?" Veg dishes fire first.</p>
+      </li>
+      <li>
+        <span class="t">~2:00 PM</span>
+        <strong>Food lands.</strong>
+        <p>The tteokbokki and corn dogs are the reviewer favorites. The Naruto Ramen belongs to Pran and Pran alone.</p>
+      </li>
+      <li>
+        <span class="t">3:30 PM</span>
+        <strong>Rajeev's driver arrives.</strong>
+        <p>He heads out, we settle the bill — PayEazy in the EazyDiner app first, UPI math after.</p>
+      </li>
+      <li>
+        <span class="t">4:00 PM</span>
+        <strong>Regroup at Saieesh's.</strong>
+        <p>Uno and the Switch. Catan stays in the box — Ani's ruling, and he's only here till the 24th, so he gets rulings.</p>
+      </li>
+      <li>
+        <span class="t">Evening</span>
+        <strong>Ice cream run.</strong>
+        <p>Cheaper than restaurant desserts and it counts as an activity. Hocco has votes.</p>
+      </li>
+      <li>
+        <span class="t">Optional</span>
+        <strong>Crash till Sunday morning.</strong>
+        <p>The offer stands. Ask whoever you need to ask.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The order</div>
+    <h2>Locked before we sit</h2>
+    <div class="receipt">
+      <h3>Hibacci · North East Asian Kitchen</h3>
+      <div class="sub">party of 7 (+1 pending) · rooftop, hopefully</div>
+
+      <div class="rgroup">Veg — fires first</div>
+      <div class="rline"><span class="mark v"></span> Gochujang Tteokbokki (med)<span class="dots"></span><span class="price">349</span></div>
+      <div class="rline"><span class="mark v"></span> Yasai Tempura Uramaki ·&nbsp;8&nbsp;pc<span class="dots"></span><span class="price">399</span></div>
+      <div class="rline"><span class="mark v"></span> Shiitake Mushroom Dim Sum ·&nbsp;6&nbsp;pc<span class="dots"></span><span class="price">329</span></div>
+      <div>
+        <div class="rline"><span class="mark v"></span> Shiitake Miso Ramen<span class="dots"></span><span class="price">349</span></div>
+        <span class="who">Rajeev + Ani's mains</span>
+      </div>
+
+      <div class="rgroup">Everything else</div>
+      <div class="rline"><span class="mark n"></span> Korean Fried Chicken<span class="dots"></span><span class="price">349</span></div>
+      <div>
+        <div class="rline"><span class="mark n"></span> Chicken Katsu Ramen (med)<span class="dots"></span><span class="price">399</span></div>
+        <span class="who">Amaan: "never disappoints"</span>
+      </div>
+      <div>
+        <div class="rline"><span class="mark n"></span> Naruto Ramen<span class="dots"></span><span class="price">449</span></div>
+        <span class="who">Pran's. Locked. Not shareable.</span>
+      </div>
+      <div class="rline"><span class="mark n"></span> Half &amp; Half Corn Dogs ·&nbsp;2&nbsp;pc<span class="dots"></span><span class="price">249</span></div>
+      <div>
+        <div class="rline"><span class="mark n"></span> Fried Chicken Momos<span class="dots"></span><span class="price">229</span></div>
+        <span class="who">fried, not jhol — the jhol ones flopped in reviews</span>
+      </div>
+      <div class="rline"><span class="mark n"></span> Hibacci Fried Rice<span class="dots"></span><span class="price">349</span></div>
+
+      <hr class="rsep">
+      <div class="rline rtotal">Subtotal<span class="dots"></span><span class="price">₹3,450</span></div>
+      <div class="rline roffer">10% offer<span class="dots"></span><span class="price">−₹345</span></div>
+      <div class="rline roffer">PayEazy (25% off, cap ₹1k)<span class="dots"></span><span class="price">−₹600ish</span></div>
+      <div class="rline rtotal">Estimated damage<span class="dots"></span><span class="price">₹2,400–2,750</span></div>
+
+      <div class="rhead">
+        <div class="big">≈ ₹345–390</div>
+        <div class="cap">a head at 7 · settle on UPI after · water is free, drinks are not</div>
+      </div>
+    </div>
+    <ul class="fineprint">
+      <li>If Banna makes it from Kurnool, add the Katsu Chicken Bao (₹299).</li>
+      <li>Hot Wings are genuinely fierce. Order only if that's a personality trait of yours.</li>
+      <li>Desserts exist off-menu (matcha panna cotta, cheesecake) but the ice cream run is the plan.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Roster</div>
+    <h2>Who's coming</h2>
+    <div class="roster">
+      <div class="person">
+        <div class="name">Saieesh</div>
+        <p>Host of round two. Brings Uno and the Switch.</p>
+      </div>
+      <div class="person">
+        <div class="name">Ani <span class="tag">veg</span></div>
+        <p>In town till the 24th — the reason this exists.</p>
+      </div>
+      <div class="person">
+        <div class="name">Pran</div>
+        <p>Naruto Ramen. That's it. That's the order.</p>
+      </div>
+      <div class="person">
+        <div class="name">Abhi</div>
+        <p>Lobbied for the eat-then-play format. Won.</p>
+      </div>
+      <div class="person">
+        <div class="name">Amaan</div>
+        <p>Booked the table. Enforces the 1:30.</p>
+      </div>
+      <div class="person">
+        <div class="name">Rajeev <span class="tag">veg</span></div>
+        <p>Lunch only — driver at 3:30, so veg fires first.</p>
+      </div>
+      <div class="person">
+        <div class="name">Shashi</div>
+        <p>Confirmed. Arriving on the new bike.</p>
+      </div>
+      <div class="person">
+        <div class="name">Banna <span class="tag warn">tbd</span></div>
+        <p>Kurnool question mark. Confirms in the morning.</p>
+      </div>
+      <div class="person dim">
+        <div class="name">Akshay</div>
+        <p>In Mysore. Gets the live feed on the group.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Intel</div>
+    <h2>Read before you sit</h2>
+    <ul class="intel">
+      <li><div><strong>Call ahead for the rooftop.</strong> <span class="why">Small room, ~10 tables inside. The roof has cover, but with today's drizzle, confirm it's open for lunch and ask them to group tables for 8.</span></div></li>
+      <li><div><strong>Order the full spread immediately.</strong> <span class="why">Every review says the same thing: the kitchen slows down at peak. No second rounds.</span></div></li>
+      <li><div><strong>Veg out of the kitchen first.</strong> <span class="why">Rajeev is on a clock. Tell the server when ordering, not after.</span></div></li>
+      <li><div><strong>PayEazy before anyone opens their UPI.</strong> <span class="why">25% off capped at ₹1,000, inside the EazyDiner app at billing. Works even though Amaan made the booking.</span></div></li>
+      <li><div><strong>Card check at the table.</strong> <span class="why">Axis, HSBC, RBL, IndusInd, IDFC — any of these might stack a coupon on top. Ask before paying, not after.</span></div></li>
+      <li><div><strong>Games stay in the bag.</strong> <span class="why">We are not playing Uno in a restaurant. Round two is at Saieesh's.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Meanwhile</div>
+    <h2>The other main event</h2>
+    <div class="fifa">
+      <div class="vs">Argentina <em>vs</em> Spain</div>
+      <div class="meta">World Cup Final · Monday 12:30 AM IST</div>
+      <div class="pool">
+        <div><b>6</b>Argentina</div>
+        <div><b>₹50</b>a head</div>
+        <div><b>2</b>Spain</div>
+      </div>
+      <div id="fifa-count"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="noodle">🍜</span>
+    Compiled from one year and 91,000 messages of yapping.<br>
+    hangout.saieesh.dev
+  </div>
+</footer>
+
+<script>
+(function () {
+  // All event times are IST (UTC+5:30); compute against UTC so viewer timezone doesn't matter.
+  var LUNCH = Date.UTC(2026, 6, 18, 8, 0);      // Sat 1:30 PM IST
+  var RAJEEV = Date.UTC(2026, 6, 18, 10, 0);    // Sat 3:30 PM IST
+  var HOUSE_END = Date.UTC(2026, 6, 19, 6, 30); // Sun noon IST
+  var KICKOFF = Date.UTC(2026, 6, 19, 19, 0);   // Mon 12:30 AM IST
+  var FULLTIME = KICKOFF + 3 * 3600 * 1000;
+
+  function fmt(ms) {
+    var s = Math.max(0, Math.floor(ms / 1000));
+    var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
+    return (h > 0 ? h + "h " : "") + m + "m";
+  }
+
+  function tick() {
+    var now = Date.now();
+    var status = document.getElementById("status");
+    var fifa = document.getElementById("fifa-count");
+
+    if (now < LUNCH) status.textContent = "▸ doors in " + fmt(LUNCH - now);
+    else if (now < RAJEEV) status.textContent = "▸ currently: eating";
+    else if (now < HOUSE_END) status.textContent = "▸ round two at Saieesh's";
+    else status.textContent = "▸ this page is now a group souvenir";
+
+    if (now < KICKOFF) fifa.textContent = "kickoff in " + fmt(KICKOFF - now);
+    else if (now < FULLTIME) fifa.textContent = "it's on.";
+    else fifa.textContent = "settle the ₹50s.";
+  }
+
+  tick();
+  setInterval(tick, 30000);
+})();
+</script>
+
+</body>
+</html>
